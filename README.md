@@ -199,7 +199,7 @@ module "gke_node_pool" {
 
 - **저장소 구조**:
   ```
-  project-iam-member-module/
+  container-node-pool-module/
   ├── .github/workflows/  # github actions 자동화 테스트
   ├── examples/           # 테스트를 위한 루트 모듈 모음 디렉터리
   ├── test/               # 테스트 구성 디렉터리
