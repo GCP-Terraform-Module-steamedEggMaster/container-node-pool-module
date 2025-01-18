@@ -24,20 +24,29 @@ resource "google_container_node_pool" "node_pool" {
   dynamic "node_config" {
     for_each = var.node_config != null ? [var.node_config] : []
     content {
-      machine_type     = node_config.value.machine_type      # 노드에서 사용할 머신 타입 (예: e2-medium, n1-standard-1)
-      disk_size_gb     = node_config.value.disk_size_gb      # 노드의 부트 디스크 크기 (GB 단위, 기본값은 100GB)
-      disk_type        = node_config.value.disk_type         # 디스크 유형 (예: pd-standard, pd-ssd)
-      image_type       = node_config.value.image_type        # 노드에서 사용할 이미지 유형 (예: COS, COS_CONTAINERD 등)
-      labels           = node_config.value.labels            # 노드에 추가할 key-value 형태의 사용자 정의 라벨
-      local_ssd_count  = node_config.value.local_ssd_count   # 노드당 로컬 SSD의 수량
-      metadata         = node_config.value.metadata          # 노드에 추가할 메타데이터 (key-value 형태)
-      min_cpu_platform = node_config.value.min_cpu_platform  # 노드의 최소 CPU 플랫폼 (예: Intel Skylake)
-      oauth_scopes     = node_config.value.oauth_scopes      # 노드에서 사용할 OAuth 스코프 목록
-      preemptible      = node_config.value.preemptible       # 프리엠티블(preemptible) 노드 설정 여부 (true/false)
-      service_account  = node_config.value.service_account   # 노드가 사용할 서비스 계정 (GCP IAM)
-      tags             = node_config.value.tags              # 노드 네트워크에서 사용할 태그 (예: 방화벽 규칙 적용용)
-      accelerators     = node_config.value.accelerators      # 노드에 추가할 하드웨어 가속기 설정 (예: GPU)
-      taint            = node_config.value.taint             # 노드에 적용할 Taint 설정 (스케줄링 제한에 사용)
+      machine_type     = node_config.value.machine_type
+      disk_size_gb     = node_config.value.disk_size_gb
+      disk_type        = node_config.value.disk_type
+      image_type       = node_config.value.image_type
+      labels           = node_config.value.labels
+      local_ssd_count  = node_config.value.local_ssd_count
+      metadata         = node_config.value.metadata
+      min_cpu_platform = node_config.value.min_cpu_platform
+      oauth_scopes     = node_config.value.oauth_scopes
+      preemptible      = node_config.value.preemptible
+      service_account  = node_config.value.service_account
+      tags             = node_config.value.tags
+      accelerators     = node_config.value.accelerators
+
+    # Taint 블록 정의
+      dynamic "taint" {
+        for_each = node_config.value.taint != null ? node_config.value.taint : []
+        content {
+          effect = taint.value.effect # Taint 효과 설정 (예: NO_SCHEDULE)
+          key    = taint.value.key    # Taint 키
+          value  = taint.value.value  # Taint 값
+        }
+      }
     }
   }
 
@@ -75,15 +84,6 @@ resource "google_container_node_pool" "node_pool" {
       max_node_count       = autoscaling.value.max_node_count       # 영역당 최대 노드 수를 설정합니다.
       total_min_node_count = autoscaling.value.total_min_node_count # 노드 풀의 총 최소 노드 수를 설정합니다.
       total_max_node_count = autoscaling.value.total_max_node_count # 노드 풀의 총 최대 노드 수를 설정합니다.
-    }
-  }
-
-  dynamic "reservation_affinity" {
-    for_each = var.reservation_affinity != null ? [var.reservation_affinity] : []
-    content {
-      consume_reservation_type = reservation_affinity.value.consume_reservation_type # 예약 소비 유형을 설정합니다. 예: ANY_RESERVATION
-      key                      = reservation_affinity.value.key                      # 특정 예약 리소스를 지정하는 키를 설정합니다.
-      values                   = reservation_affinity.value.values                   # 예약 리소스의 값을 설정합니다.
     }
   }
 

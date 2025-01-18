@@ -78,10 +78,6 @@ variable "node_config" {
     preemptible      = optional(bool, false)                                                      # 선점형 노드 설정 여부 (기본값: false)
     service_account  = optional(string, null)                                                     # 서비스 계정 이메일 (기본값: null)
     tags             = optional(list(string), [])                                                 # 네트워크 태그 (기본값: 빈 리스트)
-    accelerators = optional(list(object({
-      accelerator_count = number # GPU 가속기 개수
-      accelerator_type  = string # GPU 가속기 유형
-    })), [])                     # 가속기 설정 (기본값: 빈 리스트)
     taint = optional(list(object({
       key    = string # Taint의 키 값
       value  = string # Taint의 값
@@ -128,16 +124,6 @@ variable "autoscaling" {
     max_node_count       = optional(number, 5)    # 최대 노드 수, 기본값 5
     total_min_node_count = optional(number, null) # 총 최소 노드 수, 기본값 null
     total_max_node_count = optional(number, null) # 총 최대 노드 수, 기본값 null
-  })
-  default = null
-}
-
-variable "reservation_affinity" {
-  description = "예약 설정입니다. consume_reservation_type, key, values 값을 포함합니다."
-  type = object({
-    consume_reservation_type = optional(string, "ANY_RESERVATION") # 예약 소비 유형, 기본값 "ANY_RESERVATION"
-    key                      = optional(string, null)              # 특정 예약 리소스 키, 기본값 null
-    values                   = optional(list(string), [])          # 예약 리소스 값 목록, 기본값 빈 리스트
   })
   default = null
 }
