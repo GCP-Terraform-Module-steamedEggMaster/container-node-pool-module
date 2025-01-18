@@ -27,12 +27,6 @@ variable "project" {
   default     = null
 }
 
-variable "version" {
-  description = "노드 풀에서 사용할 Kubernetes 버전을 지정합니다."
-  type        = string
-  default     = null
-}
-
 variable "initial_node_count" {
   description = "초기 노드 수를 설정합니다. 이 값은 영역별 노드 수를 나타냅니다."
   type        = number

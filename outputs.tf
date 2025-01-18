@@ -8,11 +8,6 @@ output "name" {
   value       = google_container_node_pool.node_pool.name
 }
 
-output "version" {
-  description = "노드 풀의 Kubernetes 버전입니다."
-  value       = google_container_node_pool.node_pool.version
-}
-
 output "location" {
   description = "노드 풀이 배치된 위치입니다."
   value       = google_container_node_pool.node_pool.location

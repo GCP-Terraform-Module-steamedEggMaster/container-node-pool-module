@@ -7,7 +7,6 @@ resource "google_container_node_pool" "node_pool" {
   name_prefix        = var.name_prefix        # 노드 풀 이름의 접두사를 설정합니다. name과 함께 사용할 수 없습니다.
   location           = var.location           # 클러스터의 지역(region) 또는 영역(zone)을 설정합니다.
   project            = var.project            # 노드 풀을 생성할 프로젝트 ID를 지정합니다.
-  version            = var.version            # 노드 풀에서 사용할 Kubernetes 버전을 지정합니다.
   initial_node_count = var.initial_node_count # 초기 노드 수를 설정합니다. 이 값은 영역별 노드 수를 나타냅니다.
   node_count         = var.node_count         # 노드 풀의 노드 수를 지정합니다. 자동 확장과 함께 사용하지 않는 것이 좋습니다.
 
