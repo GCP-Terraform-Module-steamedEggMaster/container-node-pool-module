@@ -3,7 +3,7 @@ name: Terraform Module Test with Go
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   terraform-test:
