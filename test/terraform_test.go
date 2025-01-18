@@ -6,7 +6,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
-func TerraformCreateTest(t *testing.T) {
+func TestTerraformCreate(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../examples/create-test", // Terraform 루트 모듈 경로
 	}
