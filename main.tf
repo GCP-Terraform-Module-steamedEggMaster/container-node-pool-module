@@ -25,20 +25,20 @@ resource "google_container_node_pool" "node_pool" {
   dynamic "node_config" {
     for_each = var.node_config != null ? [var.node_config] : []
     content {
-      machine_type     = node_config.value.machine_type
-      disk_size_gb     = node_config.value.disk_size_gb
-      disk_type        = node_config.value.disk_type
-      image_type       = node_config.value.image_type
-      labels           = node_config.value.labels
-      local_ssd_count  = node_config.value.local_ssd_count
-      metadata         = node_config.value.metadata
-      min_cpu_platform = node_config.value.min_cpu_platform
-      oauth_scopes     = node_config.value.oauth_scopes
-      preemptible      = node_config.value.preemptible
-      service_account  = node_config.value.service_account
-      tags             = node_config.value.tags
-      accelerators     = node_config.value.accelerators
-      taint            = node_config.value.taint
+      machine_type     = node_config.value.machine_type      # 노드에서 사용할 머신 타입 (예: e2-medium, n1-standard-1)
+      disk_size_gb     = node_config.value.disk_size_gb      # 노드의 부트 디스크 크기 (GB 단위, 기본값은 100GB)
+      disk_type        = node_config.value.disk_type         # 디스크 유형 (예: pd-standard, pd-ssd)
+      image_type       = node_config.value.image_type        # 노드에서 사용할 이미지 유형 (예: COS, COS_CONTAINERD 등)
+      labels           = node_config.value.labels            # 노드에 추가할 key-value 형태의 사용자 정의 라벨
+      local_ssd_count  = node_config.value.local_ssd_count   # 노드당 로컬 SSD의 수량
+      metadata         = node_config.value.metadata          # 노드에 추가할 메타데이터 (key-value 형태)
+      min_cpu_platform = node_config.value.min_cpu_platform  # 노드의 최소 CPU 플랫폼 (예: Intel Skylake)
+      oauth_scopes     = node_config.value.oauth_scopes      # 노드에서 사용할 OAuth 스코프 목록
+      preemptible      = node_config.value.preemptible       # 프리엠티블(preemptible) 노드 설정 여부 (true/false)
+      service_account  = node_config.value.service_account   # 노드가 사용할 서비스 계정 (GCP IAM)
+      tags             = node_config.value.tags              # 노드 네트워크에서 사용할 태그 (예: 방화벽 규칙 적용용)
+      accelerators     = node_config.value.accelerators      # 노드에 추가할 하드웨어 가속기 설정 (예: GPU)
+      taint            = node_config.value.taint             # 노드에 적용할 Taint 설정 (스케줄링 제한에 사용)
     }
   }
 
