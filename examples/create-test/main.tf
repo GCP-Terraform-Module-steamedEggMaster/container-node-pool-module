@@ -1,7 +1,7 @@
 module "vpc" {
   source = "git::https://github.com/GCP-Terraform-Module-steamedEggMaster/vpc-module.git?ref=v1.0.0"
 
-  name = "test-vpc"
+  name                    = "test-vpc"
   auto_create_subnetworks = false
 }
 
@@ -65,20 +65,20 @@ module "cluster" {
 }
 
 module "node_pool" {
-  source "../../"
+  source = "../../"
 
   cluster = module.cluster.id
 
-  name = "test-node-pool"
+  name       = "test-node-pool"
   node_count = 2
 
   management = {
-    auto_repair = true
+    auto_repair  = true
     auto_upgrade = true
   }
 
   node_config = {
-    preemptible = false
+    preemptible  = false
     machine_type = "e2-medium"
     labels = {
       role = "general"
