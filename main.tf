@@ -36,8 +36,7 @@ resource "google_container_node_pool" "node_pool" {
       preemptible      = node_config.value.preemptible
       service_account  = node_config.value.service_account
       tags             = node_config.value.tags
-      accelerators     = node_config.value.accelerators
-
+      
     # Taint 블록 정의
       dynamic "taint" {
         for_each = node_config.value.taint != null ? node_config.value.taint : []
