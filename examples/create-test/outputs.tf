@@ -15,8 +15,8 @@ output "node_pool_details" {
       max_node_count = try(module.node_pool.autoscaling[0].max_node_count, null)
     }
     management = {
-      auto_repair  = module.node_pool.management.auto_repair
-      auto_upgrade = module.node_pool.management.auto_upgrade
+      auto_repair  = try(module.node_pool.management[0].auto_repair, null)
+      auto_upgrade = try(module.node_pool.management[0].auto_upgrade, null)
     }
   }
 }

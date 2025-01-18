@@ -37,7 +37,7 @@ output "autoscaling" {
 output "management" {
   description = "노드 풀 관리 설정입니다."
   value = {
-    auto_repair  = google_container_node_pool.node_pool.management.auto_repair
-    auto_upgrade = google_container_node_pool.node_pool.management.auto_upgrade
+    auto_repair  = try(google_container_node_pool.node_pool.management[0].auto_repair, null)
+    auto_upgrade = try(google_container_node_pool.node_pool.management[0].auto_upgrade, null)
   }
 }
