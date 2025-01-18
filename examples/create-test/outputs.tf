@@ -3,7 +3,6 @@ output "node_pool_details" {
   value = {
     id                  = module.node_pool.id
     name                = module.node_pool.name
-    version             = module.node_pool.version
     location            = module.node_pool.location
     instance_group_urls = module.node_pool.instance_group_urls
     node_config = {
